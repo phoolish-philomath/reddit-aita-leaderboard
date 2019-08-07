@@ -2,6 +2,7 @@ from praw import Reddit
 from praw.models import Submission
 import arrow
 import redis
+import os
 from comment_filters import RedditCommentFilter
 
 class RedditCommentStream:
@@ -16,9 +17,29 @@ class RedditCommentStream:
         
         self.subreddits_instance  = self.reddit.subreddit("+".join(RedditCommentStream.subreddits))
 
-        self.redis = redis.Redis()
-    
         self.comment_filter = RedditCommentFilter()
+        
+        self._connect_db()
+
+    def _connect_db(self):
+
+        host = os.getenv('REDIS_HOST', 'localhost')
+        port = os.getenv('REDIS_PORT', 6379)
+        connected = False
+        
+        redis_client = redis.Redis(host=host, port=port) 
+        while not connected:
+            try:
+                redis_client.ping()
+            except Exception as e:
+                print('Connection failed, trying again...')
+                print(e)
+                print(os.getenv('REDIS_HOST', 'NO HOST FOUND'))
+                print(os.getenv('REDIS_PORT', 'NO PORT FOUND'))
+            else:
+                print('Connection successful')
+                connected = True
+        self.redis = redis_client
 
     def update_leaderboard(self, submission_id):
         
