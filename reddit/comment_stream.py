@@ -28,9 +28,9 @@ class RedditCommentStream:
             self.redis.hmset(submission_id, {
                 "title": submission.title, 
                 "created_ts": submission.created_utc,
+                "url": submission.permalink,
                 "flair": submission.link_flair_text if submission.link_flair_text else '' 
                 })
-            #print("aita_comment_streams.new_submission", f"Creating new submission record: {submission_id}: {submission.title}")
             self.redis.publish("aita_comment_streams.new_submission", f"Creating new submission record: {submission_id}: {submission.title}")
         
         self.redis.zincrby("aita_leaderboard", 1, submission_id)
@@ -45,10 +45,8 @@ class RedditCommentStream:
             
             if self.comment_filter.is_yta_judgement(comment):
                 submission_id = self._get_submission_id(comment)
-            #    print("aita_comment_streams.yta", f"Found a YTA: {comment.id}")
                 self.redis.publish("aita_comment_streams.yta", f"Found a YTA: {comment.id}: {comment.body}")
                 self.update_leaderboard(submission_id)
-            #print("aita_comment_streams.all", f"{comment.id}: {comment.body}")
             self.redis.publish("aita_comment_streams.all", f"{comment.id}: {comment.body}")
 
 
