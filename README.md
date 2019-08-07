@@ -11,7 +11,7 @@ docker-compose version 1.24
 
 ### Instructions
 
-Run:
+Clone this directory and then run:
 
 `$ docker-compose up`
 
