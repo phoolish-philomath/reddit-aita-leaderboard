@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="static/semantic/dist/semantic.min.css">
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                        crossorigin="anonymous">
+		</script>
+		<script src="static/semantic/dist/semantic.min.js"></script>
+		<script src="static/js/app.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+		<style>
+		body {
+		 background-color: #EFF7FF;	
+		}
+		</style>
+		<title>/r/AmITheAsshole Leaderboard</title>
+	</head>
+	<body>
+		<div class="ui container">
+			<h5> </h5>
+			<h2 class="ui center aligned padded header"> Top {{ top_submissions | length }} Assholes Right Now </h2>
+			<p> </p>
+		</div>
+		<div class="leaderboard ui container">
+		        <table class="ui centre aligned orange table">
+				<thead>
+					<th> Rank </th>
+					<th> Submission </th>
+				</thead>
+				<tbody id="leaderboard-contents">
+			        {% for submission in top_submissions  %}
+				    <tr>
+					    <td> {{submission.rank}}. </td> 
+					    <td><a href="{{ submission.url }}">{{ submission.title }}</a></td>
+				    </tr>
+				{% endfor  %}	
+				</tbody>
+			</table>
+		</div>
+
+			<h4 id="last-updated" class="ui center aligned padded header">Last updated: {{ current_time }}</h4>
+	</body>
+</html>
