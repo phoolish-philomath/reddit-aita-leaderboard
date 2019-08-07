@@ -12,6 +12,20 @@ services:
                         REDIS_PORT: '6379'
                 depends_on:
                         - redis
+        leaderboard:
+                build:
+                        context: ./leaderboard
+                        network: host
+                volumes:
+                        - .:/leaderboard
+                network_mode: host
+                environment:
+                        REDIS_HOST: '0.0.0.0'
+                        REDIS_PORT: '6379'
+                depends_on:
+                        - redis
+                ports: 
+                        - '5000:5000'
         redis:
                 image: redis
                 ports: 
