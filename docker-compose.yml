@@ -1,26 +1,16 @@
 version: '3.7'
 services:
         reddit:
-                build:
-                        context: ./reddit
-                        network: host
-                volumes:
-                        - .:/reddit
-                network_mode: host
+                build: ./reddit
                 environment:
-                        REDIS_HOST: '0.0.0.0'
+                        REDIS_HOST: 'redis'
                         REDIS_PORT: '6379'
                 depends_on:
                         - redis
         leaderboard:
-                build:
-                        context: ./leaderboard
-                        network: host
-                volumes:
-                        - .:/leaderboard
-                network_mode: host
+                build: ./leaderboard
                 environment:
-                        REDIS_HOST: '0.0.0.0'
+                        REDIS_HOST: 'redis'
                         REDIS_PORT: '6379'
                 depends_on:
                         - redis
