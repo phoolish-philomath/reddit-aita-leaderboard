@@ -48,7 +48,9 @@ The back-end is a Flask server that subscribes to a Redis channel where updates 
  
 ### TODO 
  - Comments and Clean-up: More and better comments! Clean up your code and do some refactoring, especially with the Flask app.
- - Docker Network: Right now I am using the [host network](https://docs.docker.com/network/host/) to build and run my services. This was because I was having issues connecting to the internet in my Docker containers. I need to figure out why those issues were happening and try to use the default network configuration. I especially need to fix this because the host network option only runs on Linux! 
+ - Docker-Compose Configuration: 
+    - 9th Aug 2019: I removed the host network configuration and am using the default network settings. I think my issues before were related to me developing this on Starbucks Wifi (perhaps [this](https://stackoverflow.com/questions/24151129/network-calls-fail-during-image-build-on-corporate-network) is relevant). It is working perfectly on the public library wifi though. 
+    - 7th Aug 2019: Right now I am using the [host network](https://docs.docker.com/network/host/) to build and run my services. This was because I was having issues connecting to the internet in my Docker containers. I need to figure out why those issues were happening and try to use the default network configuration. I especially need to fix this because the host network option only runs on Linux! 
  - Heroku Hosting: It would be super cool to deploy this app remotely.
  - Web App Container: I wanted to make installation of Semantic UI part of the Dockerfile for the leaderboard application but I could not get auto-installation working for it. It would be great to figure that out so I don't have to include all the Semantic UI files in my repo. 
  - Better logging: Logging is pretty weak right now. My data ingestion pipeline is publishing logs to Redis but logging should be abstracted out. I need to read more into logging with Docker. I need more logs for the Flask app as well.
