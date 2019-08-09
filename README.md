@@ -5,9 +5,8 @@ A real-time leaderboard displaying the worst of the worst right now on /r/AmIThe
 ![UI Screenshot](leaderboard.png)
 
 ### Requirements
-Linux OS (not Mac!)
-Docker version 17
-docker-compose version 1.24
+* Docker version 17
+* docker-compose version 1.24
 
 ### Instructions
 
